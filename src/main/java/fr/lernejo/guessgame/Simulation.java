@@ -1,5 +1,8 @@
-package main.java.fr.lernejo.guessgame;
-import main.java.fr.lernejo.logger.*;
+package fr.lernejo.guessgame;
+import fr.lernejo.logger.*;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Simulation {
 
@@ -20,22 +23,54 @@ public class Simulation {
    * @return true if the player have guessed the right number
    */
   private boolean nextRound() {
-      System.out.println(logger);
+      //System.out.println(logger.toString());
       // Ask number
       if (player instanceof HumanPlayer) {
-          System.out.println("Enter a number : ");
-          long numberPlayer = ((HumanPlayer) player).console.nextInt();
+          long numberPlayer =  player.askNextGuess();
           if (numberPlayer == numberToGuess)
               return true;
-          else if (numberPlayer < numberToGuess)
-              System.out.println("Plus grand");
-          else
-              System.out.println("Plus petit");
+          else if (numberPlayer < numberToGuess) {
+              player.respond(false);
+          }
+          else {
+              player.respond(true);
+          }
+      }
+      else if (player instanceof ComputerPlayer) {
+          long nb = ((ComputerPlayer) player).dicho();
+          System.out.println("Min :" + ((ComputerPlayer) player).min);
+          System.out.println("Max: "+ ((ComputerPlayer) player).max);
+          System.out.println(nb);
+          if (nb == numberToGuess)
+              return true;
+          else if (nb < numberToGuess) {
+              player.respond(false);
+              ((ComputerPlayer) player).setMin(nb);
+          }
+          else {
+              player.respond(true);
+              ((ComputerPlayer) player).setMax(nb);
+          }
       }
     return false;
   }
 
-  public void loopUntilPlayerSucceed() {
-    while (nextRound() == false);
+  public void loopUntilPlayerSucceed(long nb_ask) {
+    long i = 0;
+    long timestamp = System.currentTimeMillis();
+      while (nextRound() == false && i++ < nb_ask);
+      long timestamp2 = System.currentTimeMillis();
+
+      // Duration of the party
+      long duration = timestamp2 - timestamp;
+      Date date = new Date(duration);
+      String result = new SimpleDateFormat("mm:ss.SSSS").format(date);
+      System.out.println(result);
+
+      // Result
+      if (i >= nb_ask)
+          System.out.println("Not found :/");
+      else
+          System.out.println("Found ! Good job !");
   }
 }

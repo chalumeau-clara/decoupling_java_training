@@ -1,6 +1,6 @@
-package main.java.fr.lernejo.guessgame;
+package fr.lernejo.guessgame;
 
-import main.java.fr.lernejo.logger.*;
+import fr.lernejo.logger.*;
 
 import java.util.Scanner;
 
@@ -10,11 +10,18 @@ public class HumanPlayer implements Player{
 
     @Override
     public long askNextGuess() {
-        return 0;
+        System.out.println("Enter a number : ");
+        long numberPlayer = console.nextInt();
+        return numberPlayer;
     }
 
     @Override
     public void respond(boolean lowerOrGreater) {
-
+        if (lowerOrGreater == true){
+            logger.log("Lower");
+        }
+        else{
+            logger.log("Greater");
+        }
     }
 }
