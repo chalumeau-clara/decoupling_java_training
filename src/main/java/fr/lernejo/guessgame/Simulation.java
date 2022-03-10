@@ -23,7 +23,7 @@ public class Simulation {
    * @return true if the player have guessed the right number
    */
   private boolean nextRound() {
-      //System.out.println(logger.toString());
+
       // Ask number
       if (player instanceof HumanPlayer) {
           long numberPlayer =  player.askNextGuess();
@@ -38,8 +38,6 @@ public class Simulation {
       }
       else if (player instanceof ComputerPlayer) {
           long nb = ((ComputerPlayer) player).dicho();
-          System.out.println("Min :" + ((ComputerPlayer) player).min);
-          System.out.println("Max: "+ ((ComputerPlayer) player).max);
           System.out.println(nb);
           if (nb == numberToGuess)
               return true;
