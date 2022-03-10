@@ -67,8 +67,8 @@ public class Simulation {
 
       // Result
       if (i >= nb_ask)
-          System.out.println("Not found :/");
+          logger.log("Not found :/");
       else
-          System.out.println("Found ! Good job !");
+          logger.log("Found ! Good job !");
   }
 }

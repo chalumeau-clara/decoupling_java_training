@@ -6,7 +6,7 @@ import fr.lernejo.logger.LoggerFactory;
 import java.util.Scanner;
 
 public class ComputerPlayer implements Player{
-    public final Logger logger = LoggerFactory.getLogger("Player");
+    public final Logger logger = LoggerFactory.getLogger("player");
     public Scanner console = new Scanner(System.in);
     public long min = 0;
 
